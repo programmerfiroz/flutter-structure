@@ -1,16 +1,18 @@
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../../constants/app_constants.dart';
-import 'shared_prefs.dart';
 
 class TokenManager {
-  static String getToken() {
-    return SharedPrefs.getString(AppConstants.token) ?? '';
+  static const _secureStorage = FlutterSecureStorage();
+
+  static Future<String> getToken() async {
+    return await _secureStorage.read(key: AppConstants.token) ?? '';
   }
 
-  static void saveToken(String token) {
-    SharedPrefs.setString(AppConstants.token, token);
+  static Future<void> saveToken(String token) async {
+    await _secureStorage.write(key: AppConstants.token, value: token);
   }
 
-  static void clearToken() {
-    SharedPrefs.remove(AppConstants.token);
+  static Future<void> clearToken() async {
+    await _secureStorage.delete(key: AppConstants.token);
   }
 }

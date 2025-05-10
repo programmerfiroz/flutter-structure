@@ -71,6 +71,7 @@ dependencies:
   firebase_analytics: ^11.4.5
   firebase_crashlytics: ^4.3.5
   file_picker: ^10.1.7
+  flutter_secure_storage: ^4.2.1
 
 dev_dependencies:
   flutter_test:

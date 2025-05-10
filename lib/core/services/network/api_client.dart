@@ -29,12 +29,10 @@ class ApiClient {
 
     // Add interceptor to dynamically add token to each request
     _dio.interceptors.add(InterceptorsWrapper(
-      onRequest: (options, handler) {
-        final token = TokenManager.getToken() ?? "";
-
+      onRequest: (options, handler) async {
+        String token = await TokenManager.getToken() ?? "";
         options.headers["Authorization"] = "Bearer $token";
         options.headers["Content-Type"] = "application/json";
-
         return handler.next(options);
       },
     ));
