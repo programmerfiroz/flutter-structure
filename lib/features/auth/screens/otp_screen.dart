@@ -1,11 +1,11 @@
-import 'package:file_stracture/core/widgets/custom_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../../../core/constants/dimensions.dart';
 import '../../../core/constants/image_constants.dart';
 import '../../../core/widgets/custom_button.dart';
-import '../../../core/widgets/custom_loading_overlay.dart';
+import '../../../core/widgets/custom_image_widget.dart';
+import '../../../core/widgets/loading_widget.dart';
 import '../controllers/auth_controller.dart';
 
 class OtpScreen extends StatelessWidget {
@@ -197,7 +197,7 @@ class OtpScreen extends StatelessWidget {
 
               // Loading overlay
               if (authController.isLoading.value)
-                CustomLoadingOverlay(),
+                LoadingWidget(type: LoadingType.overlay),
             ],
           ),
         ),

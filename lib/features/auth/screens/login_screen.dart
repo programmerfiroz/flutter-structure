@@ -4,7 +4,7 @@ import '../../../core/constants/dimensions.dart';
 import '../../../core/constants/image_constants.dart';
 import '../../../core/utils/styles.dart';
 import '../../../core/widgets/custom_button.dart';
-import '../../../core/widgets/custom_loading_overlay.dart';
+import '../../../core/widgets/loading_widget.dart';
 import '../../../routes/route_helper.dart';
 import '../controllers/auth_controller.dart';
 
@@ -21,10 +21,8 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Obx(
-              () => Stack(
+          () => Stack(
             children: [
-
-
               // Content
               SingleChildScrollView(
                 padding: EdgeInsets.all(Dimensions.height20),
@@ -35,10 +33,7 @@ class LoginScreen extends StatelessWidget {
 
                     // Logo
                     Center(
-                      child: Image.asset(
-                        ImageConstants.logo,
-                        height: 100,
-                      ),
+                      child: Image.asset(ImageConstants.logo, height: 100),
                     ),
 
                     SizedBox(height: Dimensions.height30),
@@ -78,7 +73,10 @@ class LoginScreen extends StatelessWidget {
                             decoration: Styles.inputDecoration(
                               context,
                               hintText: 'Mobile Number',
-                              prefixIcon: Icon(Icons.phone_android, color: colorScheme.primary),
+                              prefixIcon: Icon(
+                                Icons.phone_android,
+                                color: colorScheme.primary,
+                              ),
                             ),
                             validator: authController.validateMobile,
                             maxLength: 10,
@@ -110,7 +108,8 @@ class LoginScreen extends StatelessWidget {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () => Get.toNamed(RouteHelper.getSignupRoute()),
+                          onTap:
+                              () => Get.toNamed(RouteHelper.getSignupRoute()),
                           child: Text(
                             'Sign Up',
                             style: textTheme.bodySmall?.copyWith(
@@ -127,7 +126,7 @@ class LoginScreen extends StatelessWidget {
 
               // Loading overlay
               if (authController.isLoading.value)
-                CustomLoadingOverlay(),
+                LoadingWidget(type: LoadingType.overlay),
             ],
           ),
         ),

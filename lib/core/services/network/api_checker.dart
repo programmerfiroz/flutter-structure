@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:file_stracture/core/services/storage/token_manger.dart';
+import 'package:hash_code/core/services/storage/token_manger.dart';
 import 'package:get/get.dart' as getx;
 import '../../../routes/route_helper.dart';
 import '../../constants/app_constants.dart';

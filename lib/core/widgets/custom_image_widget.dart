@@ -1,10 +1,12 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../constants/image_constants.dart';
 
 /// Enum to represent different image types
-enum ImageType { svg, svgString, png, network, file, unknown }
+enum ImageType { svg, svgString, png, network, file, gif, unknown }
 
 /// Extension to determine the type of image based on its path
 extension ImageTypeExtension on String {
@@ -12,13 +14,21 @@ extension ImageTypeExtension on String {
     if (startsWith('<svg')) {
       return ImageType.svgString;
     } else if (startsWith('http') || startsWith('https')) {
+      if (toLowerCase().endsWith('.gif')) {
+        return ImageType.gif;
+      }
       return ImageType.network;
     } else if (endsWith('.svg')) {
       return ImageType.svg;
     } else if (startsWith('file://')) {
+      if (toLowerCase().endsWith('.gif')) {
+        return ImageType.gif;
+      }
       return ImageType.file;
     } else if (endsWith('.png') || endsWith('.jpg') || endsWith('.jpeg')) {
       return ImageType.png;
+    } else if (endsWith('.gif')) {
+      return ImageType.gif;
     } else {
       return ImageType.unknown;
     }
@@ -39,7 +49,7 @@ class CustomImageWidget extends StatelessWidget {
     this.radius,
     this.margin,
     this.border,
-    this.placeHolder = 'assets/images/image_not_found.png',
+    this.placeHolder = ImageConstants.imageNotFound,
   }) : super(key: key);
 
   final String? imagePath;
@@ -160,6 +170,60 @@ class CustomImageWidget extends StatelessWidget {
             fit: fit ?? BoxFit.cover,
             color: color,
           );
+        case ImageType.gif:
+          if (imagePath!.startsWith('http')) {
+            return FutureBuilder<File>(
+              future: DefaultCacheManager().getSingleFile(imagePath!),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: SizedBox(
+                      height: 30,
+                      width: 30,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: Colors.grey.shade200,
+                      ),
+                    ),
+                  );
+                } else if (snapshot.hasError || !snapshot.hasData) {
+                  // Agar cache fail ho gaya to normal network image use karo
+                  return Image.network(
+                    imagePath!,
+                    height: height,
+                    width: width,
+                    fit: fit ?? BoxFit.cover,
+                    color: color,
+                  );
+                } else {
+                  // Agar cache mil gaya to file se fast load
+                  return Image.file(
+                    snapshot.data!,
+                    height: height,
+                    width: width,
+                    fit: fit ?? BoxFit.cover,
+                    color: color,
+                  );
+                }
+              },
+            );
+          } else if (imagePath!.startsWith('file://')) {
+            return Image.file(
+              File(imagePath!),
+              height: height,
+              width: width,
+              fit: fit ?? BoxFit.cover,
+              color: color,
+            );
+          } else {
+            return Image.asset(
+              imagePath!,
+              height: height,
+              width: width,
+              fit: fit ?? BoxFit.cover,
+              color: color,
+            );
+          }
         case ImageType.unknown:
         default:
           return Image.asset(

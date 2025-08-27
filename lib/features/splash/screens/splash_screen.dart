@@ -1,4 +1,4 @@
-import 'package:file_stracture/core/widgets/custom_image_widget.dart';
+import 'package:hash_code/core/widgets/custom_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/constants/image_constants.dart';

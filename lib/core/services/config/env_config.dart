@@ -55,7 +55,7 @@ class EnvConfig {
 
 
 
-// import 'package:file_stracture/core/constants/app_constants.dart';
+// import 'package:hash_code/core/constants/app_constants.dart';
 //
 // enum Environment {
 //   development,

@@ -4,6 +4,7 @@ class AppConstants {
   static String appName = EnvConfig.appName;
   static String baseUrl = EnvConfig.baseUrl;
   static const String fontFamily = 'Poppins';
+  static const String defaultTag = 'PCB_APP';
 
   // API base URLs
   static  String imageUrl = '$baseUrl';

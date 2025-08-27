@@ -1,4 +1,4 @@
-import 'package:file_stracture/core/services/storage/token_manger.dart';
+import 'package:hash_code/core/services/storage/token_manger.dart';
 
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/services/storage/shared_prefs.dart';

@@ -6,6 +6,7 @@ class ImageConstants {
   // Common Images
   static const String logo = '${imagePath}logo.png';
   static const String splashBackground = '${imagePath}splash_bg.png';
+  static const String imageNotFound = '${imagePath}image_not_found.png';
 
   // Auth Images
   static const String loginBackground = '${imagePath}login_bg.png';

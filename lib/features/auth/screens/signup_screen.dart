@@ -1,3 +1,4 @@
+import 'package:hash_code/routes/route_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/constants/dimensions.dart';
@@ -5,8 +6,7 @@ import '../../../core/constants/image_constants.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/styles.dart';
 import '../../../core/widgets/custom_button.dart';
-import '../../../core/widgets/custom_loading_overlay.dart';
-import '../../../routes/route_helper.dart';
+import '../../../core/widgets/loading_widget.dart';
 import '../controllers/auth_controller.dart';
 
 class SignupScreen extends StatelessWidget {
@@ -148,7 +148,7 @@ class SignupScreen extends StatelessWidget {
 
               // Loading overlay
               if (authController.isLoading.value)
-                CustomLoadingOverlay(),
+                LoadingWidget(type: LoadingType.overlay),
             ],
           ),
         ),

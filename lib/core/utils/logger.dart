@@ -1,23 +1,23 @@
 import 'dart:developer' as developer;
-
 import 'package:flutter/material.dart';
 
-class Logger {
-  static const String _defaultTag = 'PCB_APP';
+import '../constants/app_constants.dart';
 
-  static void d(String message, {String tag = _defaultTag}) {
+class Logger {
+
+  static void d(String message, {String tag = AppConstants. defaultTag}) {
     _log('DEBUG', message, tag);
   }
 
-  static void i(String message, {String tag = _defaultTag}) {
+  static void i(String message, {String tag =  AppConstants. defaultTag}) {
     _log('INFO', message, tag);
   }
 
-  static void w(String message, {String tag = _defaultTag}) {
+  static void w(String message, {String tag =  AppConstants. defaultTag}) {
     _log('WARNING', message, tag);
   }
 
-  static void e(String message, {String tag = _defaultTag, dynamic error}) {
+  static void e(String message, {String tag =  AppConstants. defaultTag, dynamic error}) {
     _log('ERROR', message, tag);
     if (error != null) {
       _log('ERROR', error.toString(), tag);
