@@ -45,5 +45,50 @@
     <true/>
     <key>UIApplicationSupportsIndirectInputEvents</key>
     <true/>
+
+    <!-- App Icon Setup -->
+    <key>CFBundleIcons</key>
+    <dict>
+      <key>CFBundlePrimaryIcon</key>
+      <dict>
+        <key>CFBundleIconFiles</key>
+        <array>
+          <string>AppIcon</string> <!-- default icon name -->
+        </array>
+        <key>UIPrerenderedIcon</key>
+        <false/>
+      </dict>
+      <key>CFBundleAlternateIcons</key>
+      <dict>
+        <key>iconTeam</key>
+        <dict>
+          <key>CFBundleIconFiles</key>
+          <array>
+            <string>teamfortress</string>
+          </array>
+          <key>UIPrerenderedIcon</key>
+          <false/>
+        </dict>
+        <key>iconPhotos</key>
+        <dict>
+          <key>CFBundleIconFiles</key>
+          <array>
+            <string>photos</string>
+          </array>
+          <key>UIPrerenderedIcon</key>
+          <false/>
+        </dict>
+        <key>iconChills</key>
+        <dict>
+          <key>CFBundleIconFiles</key>
+          <array>
+            <string>chills</string>
+          </array>
+          <key>UIPrerenderedIcon</key>
+          <false/>
+        </dict>
+      </dict>
+    </dict>
+
   </dict>
 </plist>

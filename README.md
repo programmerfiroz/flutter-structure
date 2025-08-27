@@ -15,6 +15,7 @@ This project demonstrates how to integrate a **Theme Toggle** and **Language Cha
   * [3️⃣ Run PowerShell Script (Windows)](#3️⃣-run-powershell-script-windows)
   * [4️⃣ Change Android/iOS Package Name](#4️⃣-change-androidios-package-name)
   * [5️⃣ Change App Name](#5️⃣-change-app-name)
+  * [6️⃣ Change App Icon](#6️⃣-change-app-icon)
   * [✅ Result](#-result)
 * [💡 Tips](#-tips)
 
@@ -134,12 +135,35 @@ APP_NAME=Demo App
 
 ---
 
+### 6️⃣ Change App Icon
+
+To update the app icon:
+
+1. Prepare your icon image in `assets/images/logo.png`
+2. Add the following in your `pubspec.yaml`:
+
+```yaml
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/logo.png"
+```
+
+3. Run the command:
+
+```bash
+flutter pub run flutter_launcher_icons:main
+```
+
+---
+
 ### ✅ Result
 
 * Project name updated in **pubspec.yaml**
 * All imports updated from `package:file_stracture/...` → `package:hash_code/...`
 * Android/iOS package name updated successfully
 * App display name updated successfully
+* App icon updated successfully
 
 **Before:**
 
@@ -157,7 +181,7 @@ import 'package:hash_code/routes/route_helper.dart';
 
 ## 💡 Tips
 
-* Run the following after renaming:
+* Run the following after renaming or changing icons:
 
 ```bash
 flutter clean
