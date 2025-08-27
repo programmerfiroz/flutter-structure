@@ -34,21 +34,21 @@ This project demonstrates how to integrate a **Theme Toggle** and **Language Cha
 // Theme change
 final themeController = Get.find<ThemeController>();
 ElevatedButton(
-onPressed: () {
-themeController.toggleTheme();
-},
-child: Obx(() => Text(
-themeController.isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"
-)),
+  onPressed: () {
+    themeController.toggleTheme();
+  },
+  child: Obx(() => Text(
+      themeController.isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"
+  )),
 ),
 
 // Language change
 final localizationController = Get.find<LocalizationController>();
 ElevatedButton(
-onPressed: () {
-localizationController.showLanguageBottomSheet(context);
-},
-child: Text('change_language'.tr, style: TextStyle(color: Colors.white)),
+  onPressed: () {
+    localizationController.showLanguageBottomSheet(context);
+  },
+  child: Text('change_language'.tr, style: TextStyle(color: Colors.white)),
 ),
 ```
 
