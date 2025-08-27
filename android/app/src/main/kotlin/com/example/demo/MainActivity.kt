@@ -1,4 +1,4 @@
-package hash.code.file.file_stracture
+package com.example.demo
 
 import io.flutter.embedding.android.FlutterActivity
 

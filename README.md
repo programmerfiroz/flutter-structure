@@ -10,10 +10,11 @@ This project demonstrates how to integrate a **Theme Toggle** and **Language Cha
 * [🧩 Code Snippet](#-code-snippet)
 * [🔄 Project Rename Notes](#-project-rename-notes)
 
-    * [1️⃣ Update pubspec.yaml](#1️⃣-update-pubspecyaml)
-    * [2️⃣ Update Imports in lib/](#2️⃣-update-imports-in-lib)
-    * [3️⃣ Run PowerShell Script (Windows)](#3️⃣-run-powershell-script-windows)
-    * [✅ Result](#-result)
+  * [1️⃣ Update pubspec.yaml](#1️⃣-update-pubspecyaml)
+  * [2️⃣ Update Imports in lib/](#2️⃣-update-imports-in-lib)
+  * [3️⃣ Run PowerShell Script (Windows)](#3️⃣-run-powershell-script-windows)
+  * [4️⃣ Change Android/iOS Package Name](#4️⃣-change-androidios-package-name)
+  * [✅ Result](#-result)
 * [💡 Tips](#-tips)
 
 ---
@@ -104,10 +105,23 @@ Get-ChildItem -Recurse -Include *.dart -Path lib | ForEach-Object {
 
 ---
 
+### 4️⃣ Change Android/iOS Package Name
+
+You can change your app's package name using the Flutter tool:
+
+```bash
+dart run change_app_package_name:main com.example.demo
+```
+
+Replace `com.example.demo` with your desired package name.
+
+---
+
 ### ✅ Result
 
 * Project name updated in **pubspec.yaml**
 * All imports updated from `package:file_stracture/...` → `package:hash_code/...`
+* Android/iOS package name updated successfully
 
 **Before:**
 
