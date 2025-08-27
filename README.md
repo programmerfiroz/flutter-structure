@@ -14,6 +14,7 @@ This project demonstrates how to integrate a **Theme Toggle** and **Language Cha
   * [2️⃣ Update Imports in lib/](#2️⃣-update-imports-in-lib)
   * [3️⃣ Run PowerShell Script (Windows)](#3️⃣-run-powershell-script-windows)
   * [4️⃣ Change Android/iOS Package Name](#4️⃣-change-androidios-package-name)
+  * [5️⃣ Change App Name](#5️⃣-change-app-name)
   * [✅ Result](#-result)
 * [💡 Tips](#-tips)
 
@@ -33,21 +34,21 @@ This project demonstrates how to integrate a **Theme Toggle** and **Language Cha
 // Theme change
 final themeController = Get.find<ThemeController>();
 ElevatedButton(
-  onPressed: () {
-    themeController.toggleTheme();
-  },
-  child: Obx(() => Text(
-      themeController.isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"
-  )),
+onPressed: () {
+themeController.toggleTheme();
+},
+child: Obx(() => Text(
+themeController.isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"
+)),
 ),
 
 // Language change
 final localizationController = Get.find<LocalizationController>();
 ElevatedButton(
-  onPressed: () {
-    localizationController.showLanguageBottomSheet(context);
-  },
-  child: Text('change_language'.tr, style: TextStyle(color: Colors.white)),
+onPressed: () {
+localizationController.showLanguageBottomSheet(context);
+},
+child: Text('change_language'.tr, style: TextStyle(color: Colors.white)),
 ),
 ```
 
@@ -117,11 +118,28 @@ Replace `com.example.demo` with your desired package name.
 
 ---
 
+### 5️⃣ Change App Name
+
+To update the display name of your app:
+
+```bash
+dart run rename_app:main all="Demo App"
+```
+
+Also, update your `.env` file:
+
+```
+APP_NAME=Demo App
+```
+
+---
+
 ### ✅ Result
 
 * Project name updated in **pubspec.yaml**
 * All imports updated from `package:file_stracture/...` → `package:hash_code/...`
 * Android/iOS package name updated successfully
+* App display name updated successfully
 
 **Before:**
 
