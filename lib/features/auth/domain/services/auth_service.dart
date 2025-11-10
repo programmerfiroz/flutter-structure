@@ -1,8 +1,8 @@
 import 'package:hash_code/core/services/storage/token_manger.dart';
-
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/services/storage/shared_prefs.dart';
-import '../../../../data/models/user_model.dart';
+import '../../../../core/services/network/response_model.dart';
+import '../models/user_model.dart';
 import '../repositories/auth_repository.dart';
 import 'auth_service_interface.dart';
 
@@ -12,49 +12,41 @@ class AuthService implements AuthServiceInterface {
   AuthService(this._authRepository);
 
   @override
-  Future<UserModel> signup(String name, String mobile) async {
-    final response = await _authRepository.signup(name, mobile);
-
-    if (response['res'] == 'success') {
-      final user = UserModel.fromJson(response['data']);
-      // await saveUserInfo(user);
-      return user;
-    } else {
-      throw Exception(response['msg'] ?? 'Failed to signup');
-    }
+  Future<ResponseModel> signup(String name, String mobile) async {
+    return await _authRepository.signup(name, mobile);
   }
 
   @override
-  Future<UserModel> login(String mobile) async {
-    final response = await _authRepository.login(mobile);
-
-    if (response['res'] == 'success') {
-      final user = UserModel.fromJson(response['data']);
-      // await saveUserInfo(user);
-      return user;
-    } else {
-      throw Exception(response['msg'] ?? 'Failed to login');
-    }
+  Future<ResponseModel> login(String mobile) async {
+    return await _authRepository.login(mobile);
   }
 
   @override
-  Future<UserModel> verifyOtp(String mobile, String otp) async {
+  Future<ResponseModel> verifyOtp(String mobile, String otp) async {
     final response = await _authRepository.verifyOtp(mobile, otp);
 
-    if (response['res'] == 'success') {
-      // Assuming the token is returned in the response
-      if (response['token'] != null && response['token'].isNotEmpty) {
-        String userToken = response['token'];
-        saveUserToken(userToken);
-      }
+    // Auto-save token and user if success
+    if (response.isSuccess && response.body != null) {
+      try {
+        final body = response.body as Map<String, dynamic>;
 
-      final user = UserModel.fromJson(response['data']);
-      await saveUserInfo(user);
-      await SharedPrefs.setBool(AppConstants.isLoggedIn, true);
-      return user;
-    } else {
-      throw Exception(response['msg'] ?? 'Failed to verify OTP');
+        // Save token
+        final token = body['token'] ?? body['access_token'];
+        if (token != null && token.toString().isNotEmpty) {
+          await saveUserToken(token.toString());
+        }
+
+        // Save user
+        final userData = body['data'] ?? body['user'] ?? body;
+        final user = UserModel.fromJson(userData);
+        await saveUserInfo(user);
+        await SharedPrefs.setBool(AppConstants.isLoggedIn, true);
+      } catch (e) {
+        print('Error saving user data: $e');
+      }
     }
+
+    return response;
   }
 
   @override
@@ -64,13 +56,13 @@ class AuthService implements AuthServiceInterface {
 
   @override
   Future<void> saveUserToken(String userToken) async {
-    TokenManager.saveToken(userToken);
+    await TokenManager.saveToken(userToken);
   }
 
   @override
   Future<void> clearUserInfo() async {
     await SharedPrefs.remove(AppConstants.userData);
-     TokenManager.clearToken();
+    await TokenManager.clearToken();
     await SharedPrefs.setBool(AppConstants.isLoggedIn, false);
   }
 
@@ -82,6 +74,9 @@ class AuthService implements AuthServiceInterface {
   @override
   Future<UserModel?> getUserInfo() async {
     final userJsonString = SharedPrefs.getString(AppConstants.userData);
+    if (userJsonString == null || userJsonString.isEmpty) {
+      return null;
+    }
     return UserModel.fromJsonString(userJsonString);
   }
 }

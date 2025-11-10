@@ -1,6 +1,7 @@
 import 'dart:async';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/services/network/api_client.dart';
+import '../../../../core/services/network/response_model.dart';
 import 'auth_repository_interface.dart';
 
 class AuthRepository implements AuthRepositoryInterface {
@@ -9,7 +10,7 @@ class AuthRepository implements AuthRepositoryInterface {
   AuthRepository(this._apiClient);
 
   @override
-  Future<Map<String, dynamic>> signup(String name, String mobile) async {
+  Future<ResponseModel> signup(String name, String mobile) async {
     final response = await _apiClient.post(
       AppConstants.userSignupUrl,
       data: {
@@ -18,11 +19,11 @@ class AuthRepository implements AuthRepositoryInterface {
       },
     );
 
-    return response.data;
+    return response;
   }
 
   @override
-  Future<Map<String, dynamic>> login(String mobile) async {
+  Future<ResponseModel> login(String mobile) async {
     final response = await _apiClient.post(
       AppConstants.userLoginUrl,
       data: {
@@ -30,11 +31,11 @@ class AuthRepository implements AuthRepositoryInterface {
       },
     );
 
-    return response.data;
+    return response;
   }
 
   @override
-  Future<Map<String, dynamic>> verifyOtp(String mobile, String otp) async {
+  Future<ResponseModel> verifyOtp(String mobile, String otp) async {
     final response = await _apiClient.post(
       AppConstants.otpVerifyUrl,
       data: {
@@ -43,6 +44,6 @@ class AuthRepository implements AuthRepositoryInterface {
       },
     );
 
-    return response.data;
+    return response;
   }
 }
